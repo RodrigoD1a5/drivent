@@ -4,6 +4,8 @@ import { authenticateToken } from '@/middlewares';
 
 const ticketRouter = Router();
 
-ticketRouter.all('/*', authenticateToken).get('/types', getTypesTickets);
+ticketRouter
+  // .all('/*', authenticateToken)
+  .get('/types', getTypesTickets);
 
 export { ticketRouter };

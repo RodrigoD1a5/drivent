@@ -20,6 +20,7 @@ export async function authenticateToken(req: AuthenticatedRequest, res: Response
         token,
       },
     });
+    console.log(session);
     if (!session) return generateUnauthorizedResponse(res);
 
     req.userId = userId;
