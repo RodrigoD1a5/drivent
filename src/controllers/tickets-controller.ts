@@ -13,7 +13,7 @@ export async function getTypesTickets(req: AuthenticatedRequest, res: Response) 
   }
 }
 
-export async function getTicketByUserId(req: AuthenticatedRequest & { userId: number }, res: Response) {
+export async function getTicketByUserId(req: AuthenticatedRequest, res: Response) {
   const userId = req.userId as number;
 
   try {
