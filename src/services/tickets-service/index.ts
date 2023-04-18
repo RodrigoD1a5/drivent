@@ -13,7 +13,7 @@ async function getTycketByUserId(userId: number): Promise<Ticket> {
 
   if (!enrollmentValidation) throw notFoundError();
 
-  const tickets = await ticketsRepository.getTycketByUserId(enrollmentValidation.id);
+  const tickets = await ticketsRepository.getTycketByEnrollmentId(enrollmentValidation.id);
 
   if (!tickets) throw notFoundError();
 

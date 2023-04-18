@@ -1,3 +1,4 @@
+import { Payment } from '@prisma/client';
 import { prisma } from '@/config';
 
 async function getPaymentByTicketId(ticketId: number) {
@@ -8,8 +9,15 @@ async function getPaymentByTicketId(ticketId: number) {
   });
 }
 
+async function createPayment(data: Omit<Payment, 'id' | 'createdAt' | 'updatedAt'>) {
+  return await prisma.payment.create({
+    data,
+  });
+}
+
 const paymentsRepository = {
   getPaymentByTicketId,
+  createPayment,
 };
 
 export default paymentsRepository;
