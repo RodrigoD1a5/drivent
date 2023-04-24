@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
-import { ApplicationError, RequestError } from '@/protocols';
+import { ApplicationError } from '@/protocols';
 
 export function handleApplicationErrors(
-  err: ApplicationError | Error | RequestError,
+  err: ApplicationError | Error,
   _req: Request,
   res: Response,
   _next: NextFunction,
@@ -38,14 +38,19 @@ export function handleApplicationErrors(
     });
   }
 
+  if (err.name === 'InvalidDataFormatError') {
+    return res.status(httpStatus.NO_CONTENT).send({
+      message: err.message,
+    });
+  }
+
   if (err.name === 'PaymentRequiredError') {
     return res.status(httpStatus.PAYMENT_REQUIRED).send({
       message: err.message,
     });
   }
-
   /* eslint-disable-next-line no-console */
-  console.error(err.name);
+  //console.error(err.name);
   res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
     error: 'InternalServerError',
     message: 'Internal Server Error',
